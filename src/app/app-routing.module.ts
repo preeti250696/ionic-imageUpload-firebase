@@ -11,6 +11,10 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: 'cloud-list',
+    loadChildren: () => import('./cloud-list/cloud-list.module').then( m => m.CloudListPageModule)
+  },
 ];
 
 @NgModule({

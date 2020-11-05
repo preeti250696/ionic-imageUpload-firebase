@@ -1,20 +1,39 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
+<ion-header>
+  <ion-toolbar color="primary">
     <ion-title>
-      Blank
+      Ionic Image Upload
     </ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/cloud-list">
+        <ion-icon slot="icon-only" name="cloud-done"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+<ion-content padding>
+  <h3 text-center *ngIf="images.length == 0">Please select an image</h3>
+  <ion-progress-bar [value]="uploadProgress" color="success"></ion-progress-bar>
+  <ion-list>
+    <ion-item *ngFor="let img of images; index as pos" text-wrap>
+      <ion-thumbnail slot="start">
+        <ion-img [src]="img.path"></ion-img>
+      </ion-thumbnail>
+      <ion-label>{{img.name}}</ion-label>
+      <ion-button slot="end" fill="clear" (click)="startUpload(img)">
+        <ion-icon slot="icon-only" name="cloud-upload"></ion-icon>
+      </ion-button>
+      <ion-button slot="end" fill="clear" (click)="deleteImage(img, pos)">
+        <ion-icon slot="icon-only" name="trash"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
 </ion-content>
+<ion-footer>
+  <ion-toolbar color="primary">
+    <ion-button color="light" fill="clear" expand="full" (click)="selectImage()">
+      <ion-icon name="camera" slot="start"></ion-icon>
+      Select Image
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>
